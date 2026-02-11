@@ -33,16 +33,6 @@ yesBtn.addEventListener('click', () => {
 });
 
 /* падающие сердечки */
-function createHeart(){
-  const heart = document.createElement('div');
-  heart.className = 'heart';
-  heart.style.left = Math.random() * window.innerWidth + 'px';
-  heart.style.fontSize = (10 + Math.random()*20) + 'px';
-  heart.textContent='❤️';
-  document.body.appendChild(heart);
-  setTimeout(()=>heart.remove(),4000);
-}
-setInterval(createHeart, 300);
 
 /* ресайз */
 window.addEventListener('resize', ()=>{
@@ -51,3 +41,4 @@ window.addEventListener('resize', ()=>{
     placeNoAtRandom();
   }
 });
+
