@@ -27,12 +27,44 @@ function moveNo(ev){ ev && ev.preventDefault && ev.preventDefault(); placeNoAtRa
 
 /* Нажатие Yes */
 yesBtn.addEventListener('click', () => {
-  stage.style.opacity = "0";
+
+  explodeHearts();
+
+  setTimeout(() => {
+    stage.style.opacity = "0";
+  }, 300);
+
   setTimeout(() => {
     stage.style.display = "none";
     surprise.classList.add("show");
-  }, 600);
+  }, 900);
 });
+
+
+function explodeHearts() {
+  const count = 14;
+
+  for (let i = 0; i < count; i++) {
+    const heart = document.createElement("div");
+    heart.className = "explode-heart";
+    heart.textContent = "❤️";
+
+    const angle = Math.random() * 2 * Math.PI;
+    const distance = 120 + Math.random() * 80;
+
+    const x = Math.cos(angle) * distance + "px";
+    const y = Math.sin(angle) * distance + "px";
+
+    heart.style.setProperty("--x", x);
+    heart.style.setProperty("--y", y);
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 900);
+  }
+}
 
 
 /* падающие сердечки */
@@ -44,5 +76,6 @@ window.addEventListener('resize', ()=>{
     placeNoAtRandom();
   }
 });
+
 
 
