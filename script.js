@@ -49,10 +49,6 @@ function moveNo(ev){
   placeNoAtRandom();
 }
 
-/* при загрузке ставим кнопку */
-window.addEventListener('load', () => {
-  placeNoAtRandom();
-});
 
 /* события: мышь и тач */
 noBtn.addEventListener('mouseenter', moveNo, {passive:false});
@@ -113,3 +109,4 @@ window.addEventListener('resize', () => {
     placeNoAtRandom();
   }
 });
+
