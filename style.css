@@ -1,157 +1,169 @@
-:root{ --btn-yes: #ff4da6; --btn-no: #b3b3b3; }
-
-html,body{
-    height:100%;
-    margin:0;
+:root{
+  --btn-yes: #ff4da6;
+  --btn-no: #b3b3b3;
 }
 
+/* Базовый сброс */
+html,body{ height:100%; margin:0; padding:0; }
 body{
-    margin: 0;
-    padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    background: #fab6d2; /* нежно-розовый */
+  font-family: Arial, Helvetica, sans-serif;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+
+  /* нежно-розовый фон */
+  background: #ffd6e7;
 }
 
-
-/* Основной блок */
+/* Сцена (вопрос и кнопки) */
 #stage{
-    position:relative;
-    z-index:2;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:20px;
-    padding:20px;
-    transition: opacity 0.6s ease;
+  position:relative;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:20px;
+  padding:20px;
+  transition: opacity 0.6s ease;
 }
 
 #question{
-    color:#fff;
-    font-size:2.2rem;
-    margin:0;
-    text-shadow:0 2px 10px rgba(0,0,0,0.6);
+  color:#6b1f3a; /* тёплый цвет для контраста на розовом */
+  font-size:2.0rem;
+  margin:0;
+  text-shadow:0 2px 8px rgba(0,0,0,0.08);
 }
 
-.buttons{
-    position:relative;
-    display:flex;
-    gap:16px;
-    align-items:center;
-    height:60px;
-}
+/* Кнопки */
+.buttons{ position:relative; display:flex; gap:16px; align-items:center; height:64px; }
 
 button{
-    border:none;
-    border-radius:12px;
-    padding:12px 22px;
-    font-size:1.05rem;
-    cursor:pointer;
-    box-shadow:0 6px 18px rgba(0,0,0,0.25);
-    transition: transform .12s ease, box-shadow .12s ease;
-    user-select:none;
+  border:none;
+  border-radius:12px;
+  padding:12px 22px;
+  font-size:1.05rem;
+  cursor:pointer;
+  box-shadow:0 8px 20px rgba(0,0,0,0.10);
+  transition: transform .12s ease, box-shadow .12s ease, opacity .12s;
+  user-select:none;
+  -webkit-user-select:none;
 }
 
-button:active{
-    transform: translateY(2px);
-}
+button:active{ transform: translateY(2px); }
 
 #yes{
-    background:var(--btn-yes);
-    color:#fff;
-    z-index:2;
-    position:relative;
+  background:var(--btn-yes);
+  color:#fff;
+  z-index:2;
+  position:relative;
 }
 
 #no{
-    background:var(--btn-no);
-    color:#fff;
-    position:absolute;
-    left:50%;
-    top:50%;
-    transform:translate(-50%,-50%);
-    z-index:1;
-    touch-action:manipulation;
+  background:var(--btn-no);
+  color:#fff;
+  position:absolute; /* будем позиционировать через JS */
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  z-index:1;
+  touch-action:manipulation;
 }
 
-/* Сюрприз */
+/* Сюрприз-оверлей (скрыт, opacity 0) */
 #surprise{
-    position:fixed;
-    inset:0;
-    z-index:5;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    background: url('images/surprise.jpg') center/cover no-repeat;
-    color:#fff;
-    padding:20px;
+  position:fixed;
+  inset:0;
+  z-index:5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
-    opacity:0;
-    pointer-events:none;
-    transition: opacity 1s ease;
+  /* скрыт по умолчанию */
+  opacity:0;
+  pointer-events:none;
+  transition: opacity 0.9s ease;
 }
 
+/* когда показываем, добавляем класс .show через JS */
 #surprise.show{
-    opacity:1;
-    pointer-events:auto;
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* Внутренний блок текста сюрприза */
+#surpriseInner{
+  background: rgba(0,0,0,0.25); /* лёгкий затемняющий слой для читаемости */
+  padding: 28px 28px;
+  border-radius: 14px;
+  max-width: 90%;
+  backdrop-filter: blur(3px);
 }
 
 #surpriseContent{
-    font-size:2.4rem;
-    text-shadow:0 4px 18px rgba(0,0,0,0.7);
+  font-size:2.4rem;
+  color:#fff;
+  text-shadow: 0 6px 22px rgba(0,0,0,0.55);
+  margin-bottom: 10px;
+  transform-origin: center;
+  opacity:0;
+  transform: scale(0.98) translateY(6px);
+  transition: all 0.45s ease;
 }
 
-/* Адаптация */
-@media (max-width:420px){
-    #question{ font-size:1.6rem; }
-    #surpriseContent{ font-size:1.6rem; }
+/* мягкая дополнительная фраза (по умолчанию скрыта) */
+.soft-text{
+  font-size:1.05rem;
+  color:#fff;
+  opacity:0;
+  transform: translateY(10px);
+  transition: all 0.6s ease;
 }
 
-/* Разлетающиеся сердечки */
-.explode-heart {
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    font-size: 22px;
-    pointer-events: none;
-    z-index: 10;
-    animation: explode 0.9s ease-out forwards;
+/* Когда сюрприз показан — анимируем появление текста */
+#surprise.show #surpriseContent{
+  opacity:1;
+  transform: scale(1) translateY(0);
+}
+#surprise.show .soft-text{
+  opacity:1;
+  transform: translateY(0);
+  transition-delay: 0.5s; /* появится чуть позже */
+}
+
+/* Разлётные сердечки (explode) */
+.explode-heart{
+  position:fixed;
+  left:50%;
+  top:50%;
+  font-size:22px;
+  pointer-events:none;
+  z-index:10;
+  animation: explode 0.9s ease-out forwards;
+  transform-origin: center;
+  opacity:1;
 }
 
 @keyframes explode {
-    0% {
-        transform: translate(-50%, -50%) scale(0.5);
-        opacity: 1;
-    }
-    100% {
-        transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1.2);
-        opacity: 0;
-    }
+  0%{
+    transform: translate(-50%, -50%) scale(0.6);
+    opacity:1;
+  }
+  100%{
+    transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1.2);
+    opacity:0;
+  }
 }
 
-.soft-text {
-    font-size: 20px;
-    margin-top: 15px;
-    opacity: 0;
-    animation: fadeInSoft 2s ease forwards;
-    animation-delay: 1.5s; /* появится чуть позже */
+/* Адаптив */
+@media (max-width:420px){
+  #question{ font-size:1.5rem; }
+  #surpriseContent{ font-size:1.4rem; }
+  .explode-heart{ font-size:18px; }
 }
-
-@keyframes fadeInSoft {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
