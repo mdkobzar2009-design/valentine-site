@@ -27,10 +27,13 @@ function moveNo(ev){ ev && ev.preventDefault && ev.preventDefault(); placeNoAtRa
 
 /* Нажатие Yes */
 yesBtn.addEventListener('click', () => {
-  stage.classList.add('hidden');
-  surprise.classList.remove('hidden');
-  surprise.classList.add('fade-in');
+  stage.style.opacity = "0";
+  setTimeout(() => {
+    stage.style.display = "none";
+    surprise.classList.add("show");
+  }, 600);
 });
+
 
 /* падающие сердечки */
 
@@ -41,4 +44,5 @@ window.addEventListener('resize', ()=>{
     placeNoAtRandom();
   }
 });
+
 
