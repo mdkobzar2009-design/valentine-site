@@ -88,7 +88,7 @@ button:active{ transform: translateY(2px); }
   /* скрыт по умолчанию */
   opacity:0;
   pointer-events:none;
-  transition: opacity 0.9s ease;
+  transition: opacity 2s ease;
 }
 
 /* когда показываем, добавляем класс .show через JS */
@@ -123,7 +123,7 @@ button:active{ transform: translateY(2px); }
   color:#fff;
   opacity:0;
   transform: translateY(10px);
-  transition: all 0.6s ease;
+  transition: all 1.6s ease;
 }
 
 /* Когда сюрприз показан — анимируем появление текста */
@@ -134,7 +134,7 @@ button:active{ transform: translateY(2px); }
 #surprise.show .soft-text{
   opacity:1;
   transform: translateY(0);
-  transition-delay: 0.5s; /* появится чуть позже */
+  transition-delay: 1.2s; /* появится чуть позже */
 }
 
 /* Разлётные сердечки (explode) */
@@ -167,3 +167,4 @@ button:active{ transform: translateY(2px); }
   #surpriseContent{ font-size:1.4rem; }
   .explode-heart{ font-size:18px; }
 }
+
