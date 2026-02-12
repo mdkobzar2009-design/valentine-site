@@ -6,15 +6,18 @@ html,body{
 }
 
 body{
+    margin: 0;
+    padding: 0;
     font-family: Arial, Helvetica, sans-serif;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    position:relative;
-    overflow:hidden;
-    background: url('images/background.jpg') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background: #fab6d2; /* нежно-розовый */
 }
+
 
 /* Основной блок */
 #stage{
@@ -129,6 +132,25 @@ button:active{
     100% {
         transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1.2);
         opacity: 0;
+    }
+}
+
+.soft-text {
+    font-size: 20px;
+    margin-top: 15px;
+    opacity: 0;
+    animation: fadeInSoft 2s ease forwards;
+    animation-delay: 1.5s; /* появится чуть позже */
+}
+
+@keyframes fadeInSoft {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
