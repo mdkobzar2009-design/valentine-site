@@ -62,15 +62,13 @@ button:active{ transform: translateY(2px); }
 }
 
 #no{
-  background:var(--btn-no);
-  color:#fff;
-  position:absolute; /* будем позиционировать через JS */
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  z-index:1;
-  touch-action:manipulation;
+    background:var(--btn-no);
+    color:#fff;
+    position:relative;   /* теперь стоит рядом с Yes */
+    z-index:1;
+    touch-action:manipulation;
 }
+
 
 /* Сюрприз-оверлей (скрыт, opacity 0) */
 #surprise{
@@ -167,4 +165,5 @@ button:active{ transform: translateY(2px); }
   #surpriseContent{ font-size:1.4rem; }
   .explode-heart{ font-size:18px; }
 }
+
 
