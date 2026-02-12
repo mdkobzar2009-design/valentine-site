@@ -1,5 +1,10 @@
 :root{ --btn-yes: #ff4da6; --btn-no: #b3b3b3; }
-html,body{height:100%; margin:0;}
+
+html,body{
+    height:100%;
+    margin:0;
+}
+
 body{
     font-family: Arial, Helvetica, sans-serif;
     display:flex;
@@ -11,6 +16,7 @@ body{
     background: url('images/background.jpg') center/cover no-repeat;
 }
 
+/* Основной блок */
 #stage{
     position:relative;
     z-index:2;
@@ -19,6 +25,7 @@ body{
     align-items:center;
     gap:20px;
     padding:20px;
+    transition: opacity 0.6s ease;
 }
 
 #question{
@@ -28,20 +35,36 @@ body{
     text-shadow:0 2px 10px rgba(0,0,0,0.6);
 }
 
-.buttons{ position:relative; display:flex; gap:16px; align-items:center; height:60px; }
+.buttons{
+    position:relative;
+    display:flex;
+    gap:16px;
+    align-items:center;
+    height:60px;
+}
 
 button{
-    border: none;
+    border:none;
     border-radius:12px;
     padding:12px 22px;
     font-size:1.05rem;
     cursor:pointer;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    box-shadow:0 6px 18px rgba(0,0,0,0.25);
     transition: transform .12s ease, box-shadow .12s ease;
     user-select:none;
 }
-button:active{ transform: translateY(2px); }
-#yes{ background:var(--btn-yes); color:#fff; z-index:2; position:relative; }
+
+button:active{
+    transform: translateY(2px);
+}
+
+#yes{
+    background:var(--btn-yes);
+    color:#fff;
+    z-index:2;
+    position:relative;
+}
+
 #no{
     background:var(--btn-no);
     color:#fff;
@@ -50,23 +73,10 @@ button:active{ transform: translateY(2px); }
     top:50%;
     transform:translate(-50%,-50%);
     z-index:1;
-    touch-action: manipulation;
+    touch-action:manipulation;
 }
 
-.heart{
-    position:absolute;
-    pointer-events:none;
-    font-size:18px;
-    z-index:0;
-    opacity:0.95;
-    animation: fall linear;
-}
-@keyframes fall {
-    from { transform: translateY(-30vh) scale(0.8); }
-    to   { transform: translateY(110vh) scale(1.1); }
-}
-
-.hidden{ display:none !important; pointer-events:none; opacity:0; }
+/* Сюрприз */
 #surprise{
     position:fixed;
     inset:0;
@@ -76,19 +86,28 @@ button:active{ transform: translateY(2px); }
     justify-content:center;
     text-align:center;
     background: url('images/surprise.jpg') center/cover no-repeat;
-    background-size: cover;
     color:#fff;
     padding:20px;
+
+    opacity:0;
+    pointer-events:none;
+    transition: opacity 1s ease;
 }
+
+#surprise.show{
+    opacity:1;
+    pointer-events:auto;
+}
+
 #surpriseContent{
     font-size:2.4rem;
     text-shadow:0 4px 18px rgba(0,0,0,0.7);
 }
 
-.fade-in{ animation: fadeIn .45s ease forwards; }
-@keyframes fadeIn { from { opacity:0; transform: scale(0.99) } to { opacity:1; transform: scale(1) } }
-
+/* Адаптация */
 @media (max-width:420px){
     #question{ font-size:1.6rem; }
     #surpriseContent{ font-size:1.6rem; }
 }
+
+
